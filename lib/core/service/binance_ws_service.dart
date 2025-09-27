@@ -16,7 +16,7 @@ class BinanceWsService {
     if (mockMode) {
       _startMock();
     } else {
-      
+      _connect();
     }
   }
 
@@ -26,6 +26,44 @@ class BinanceWsService {
       latestBtcIntPrice = price;
       _controller.add({'mock_price': price});
     });
+  }
+
+  Future<void> _connect() async {
+    try {
+      _channel = WebSocketChannel.connect(Uri.parse('wss://stream.binance.com:9443/ws'));
+      final payload = jsonEncode({
+        "method": "SUBSCRIBE",
+        "params": ["btcusdt@ticker"],
+        "id": 1
+      });
+      _channel!.sink.add(payload);
+
+      _channel!.stream.listen((dynamic msg) {
+        try {
+          final data = jsonDecode(msg as String) as Map<String, dynamic>;
+          if (data.containsKey('c')) {
+            final priceStr = (data['c'] ?? '').toString();
+            final intPrice = int.tryParse(priceStr.split('.').first);
+            if (intPrice != null) {
+              latestBtcIntPrice = intPrice;
+              _controller.add(data);
+            }
+          } else {
+            _controller.add(data);
+          }
+        } catch (e) {
+          _controller.add({'raw': msg});
+        }
+      }, onError: (e) {
+        _controller.add({'error': e.toString()});
+      }, onDone: () {
+
+        Future.delayed(const Duration(seconds: 3), () => _connect());
+      });
+    } catch (e) {
+      _controller.add({'error': e.toString()});
+      Future.delayed(const Duration(seconds: 3), () => _connect());
+    }
   }
 
   void dispose() {
