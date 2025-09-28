@@ -1,16 +1,35 @@
 # reversed_minesweeper_poc
 
-A new Flutter project.
+# Reversed Minesweeper — Flutter Challenge (Riverpod + Clean-ish architecture)
 
-## Getting Started
+## Overview
+This project implements a reversed minesweeper game where the player places pieces onto a 10x10 board and discovers hidden bombs. A timer explodes bombs every 10 seconds. The app also connects to Binance websocket and adds bombs when integer BTC price divisible by 5.
 
-This project is a starting point for a Flutter application.
+## How to run
+1. Ensure Flutter SDK is installed.
+2. Clone repository.
+3. `flutter pub get`
+4. `flutter run` (or open in IDE)
 
-A few resources to get you started if this is your first Flutter project:
+Note: WebSocket uses a `mockMode` by default to avoid needing live connection during development. To use real Binance feed, change `mockMode: false` in `binance_ws_service.dart`.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Architecture
+- `domain/` contains entities.
+- `presentation/providers/` contains Riverpod state notifiers.
+- `presentation/widgets/` contains UI pieces.
+- `core/ws/` holds Binance WS wrapper.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Features implemented
+- 10x10 board
+- Drag & drop with `LongPressDraggable` and `DragTarget`
+- Bomb discovery (drop on bomb increases discovered count)
+- Periodic explosion timer (10s)
+- Binance WS integration (mocked by default)
+- Game over detection (when all bombs discovered or exploded)
+- Basic animations & visual feedback
+
+## Notes & next steps
+Recommended improvements:
+- Add nicer animations (explosion, piece slide).
+- Add x/y coordinate mapping and better UI for piece pool.
+
