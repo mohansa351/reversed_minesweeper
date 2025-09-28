@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "739583173793",
+    "project_id": "reversed-minesweeper",
+    "storage_bucket": "reversed-minesweeper.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739583173793:android:79710f10040c8b0162bce0",
+        "android_client_info": {
+          "package_name": "com.example.reversed_minesweeper_poc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDocqCxytqGgjCakWuimwOnfYiEUGNMiq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

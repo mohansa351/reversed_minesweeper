@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../core/service/binance_ws_service.dart';
-import '../../domain/entities/board_tile.dart';
-import '../../domain/entities/board_piece.dart';
+import '../../../../core/service/binance_ws_service.dart';
+import '../domain/entities/board_tile.dart';
+import '../domain/entities/board_piece.dart';
 
 
 const int defaultRows = 10;
 const int defaultCols = 10;
 const int initialBombs = 10;
-const int initialPieces = 80; 
+const int initialPieces = 20; 
 
 class GameState {
   final int rows;
